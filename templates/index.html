@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A modern, beautiful To-Do List application built with Django and vanilla JavaScript">
+    <title>TaskFlow - Modern To-Do App</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Alert Container -->
+    <div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000; max-width: 400px;"></div>
+    
+    <!-- Authentication View -->
+    <div id="auth-view" class="auth-container">
+        <!-- Login Form -->
+        <div id="login-form-container" class="glass-card auth-card">
+            <div class="auth-logo">
+                <h1>✨ TaskFlow</h1>
+                <p>Manage your tasks beautifully</p>
+            </div>
+            
+            <form onsubmit="login(event)" id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" class="form-input" 
+                           placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" class="form-input" 
+                           placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="login-btn">
+                    Login
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                Don't have an account? <a href="javascript:void(0)" onclick="showRegisterForm()">Register here</a>
+            </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div id="register-form-container" class="glass-card auth-card hidden">
+            <div class="auth-logo">
+                <h1>✨ TaskFlow</h1>
+                <p>Create your account</p>
+            </div>
+            
+            <form onsubmit="register(event)" id="register-form">
+                <div class="form-group">
+                    <label for="reg-username">Username *</label>
+                    <input type="text" id="reg-username" name="username" class="form-input" 
+                           placeholder="Choose a username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-email">Email *</label>
+                    <input type="email" id="reg-email" name="email" class="form-input" 
+                           placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-first-name">First Name</label>
+                    <input type="text" id="reg-first-name" name="first_name" class="form-input" 
+                           placeholder="Your first name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-last-name">Last Name</label>
+                    <input type="text" id="reg-last-name" name="last_name" class="form-input" 
+                           placeholder="Your last name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-password">Password *</label>
+                    <input type="password" id="reg-password" name="password" class="form-input" 
+                           placeholder="Choose a strong password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-password2">Confirm Password *</label>
+                    <input type="password" id="reg-password2" name="password2" class="form-input" 
+                           placeholder="Confirm your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="register-btn">
+                    Register
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                Already have an account? <a href="javascript:void(0)" onclick="showLoginForm()">Login here</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App View -->
+    <div id="app-view" class="app-container hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <div class="header-title">
+                    <h1>✨ TaskFlow</h1>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <div class="user-details">
+                        <h3 id="user-name">User</h3>
+                        <p id="user-email">user@example.com</p>
+                    </div>
+                    <button class="btn btn-logout" onclick="logout()">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="stat-total">0</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                
+                <div class="glass-card stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-value" id="stat-active">0</div>
+                    <div class="stat-label">Active Tasks</div>
+                </div>
+                
+                <div class="glass-card stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div class="stat-value" id="stat-completed">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="task-section">
+            <!-- Add Task Card -->
+            <div class="glass-card add-task-card">
+                <h2>➕ Add New Task</h2>
+                
+                <form onsubmit="addTask(event)" id="add-task-form">
+                    <div class="form-group">
+                        <label for="task-title">Task Title *</label>
+                        <input type="text" id="task-title" name="title" class="form-input" 
+                               placeholder="What needs to be done?" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" name="description" class="form-input" 
+                                  rows="4" placeholder="Add more details (optional)"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-add-task" id="add-task-btn">
+                        + Add Task
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Task List Card -->
+            <div class="glass-card task-list-card">
+                <h2 class="mb-3">📋 Your Tasks</h2>
+                
+                <!-- Task Controls -->
+                <div class="task-controls">
+                    <div class="search-box">
+                        <input type="text" id="search-input" class="form-input" 
+                               placeholder="🔍 Search tasks..." oninput="searchTasks()">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="btn-filter active" data-filter="all" onclick="setFilter('all')">
+                            All
+                        </button>
+                        <button class="btn-filter" data-filter="active" onclick="setFilter('active')">
+                            Active
+                        </button>
+                        <button class="btn-filter" data-filter="completed" onclick="setFilter('completed')">
+                            Completed
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Task List -->
+                <div class="task-list" id="task-list">
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <p class="empty-message">Loading tasks...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
