@@ -107,8 +107,6 @@ Visit **http://127.0.0.1:8000** to access the stunning glassmorphism UI.
 4. **Manage tasks**: mark complete, search, filter, delete
 5. **Logout** when done
 
-See [FRONTEND.md](FRONTEND.md) for detailed frontend documentation.
-
 ## 📚 API Documentation
 
 ### Authentication Endpoints
@@ -358,8 +356,6 @@ REST_FRAMEWORK = {
 
 ### Useful Commands
 
-See [COMMANDS.md](COMMANDS.md) for a complete reference.
-
 ```bash
 # Create migrations
 python manage.py makemigrations
@@ -391,7 +387,7 @@ python api_demo.py
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome!
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
