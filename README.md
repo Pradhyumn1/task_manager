@@ -5,20 +5,29 @@ A comprehensive RESTful API for managing tasks, built with Django and Django RES
 ## 🎯 Features
 
 - ✅ **Full CRUD Operations** - Create, Read, Update, and Delete tasks
+- 🎨 **Beautiful Modern Frontend** - Glassmorphism UI with smooth animations
 - 🔐 **User Authentication** - Token-based authentication with user registration
 - 🔒 **User-Specific Tasks** - Users can only manage their own tasks
-- 🔍 **Filtering** - Filter tasks by completion status
+- 🔍 **Filtering & Search** - Filter tasks by completion status and search in real-time
 - 📊 **REST API** - Clean RESTful endpoints with proper HTTP methods
 - 📖 **API Documentation** - Browsable API interface powered by DRF
 - ✨ **Input Validation** - Comprehensive data validation and error handling
+- 📱 **Fully Responsive** - Works beautifully on all devices
 
 ## 🛠️ Tech Stack
 
+**Backend:**
 - **Backend Framework:** Django 4.2+
 - **API Framework:** Django REST Framework 3.14+
 - **Database:** SQLite (development) / PostgreSQL (production-ready)
 - **Authentication:** Token-based authentication
 - **Python:** 3.8+
+
+**Frontend:**
+- **HTML5** - Semantic structure
+- **CSS3** - Modern styling with glassmorphism
+- **Vanilla JavaScript** - No frameworks, pure JS
+- **Google Fonts** - Inter font family
 
 ## 📋 Prerequisites
 
@@ -83,7 +92,21 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-The API will be available at `http://127.0.0.1:8000/`
+The server will be available at `http://127.0.0.1:8000/`
+
+## 🎨 Accessing the Frontend
+
+**Beautiful Web Interface:**
+
+Simply open your browser and visit: **http://127.0.0.1:8000**
+
+You'll see a stunning glassmorphism UI where you can:
+- Register and login
+- Create and manage tasks
+- Filter and search tasks
+- View your task statistics
+
+**For detailed frontend documentation, see [FRONTEND.md](FRONTEND.md)**
 
 ## 📚 API Endpoints
 
